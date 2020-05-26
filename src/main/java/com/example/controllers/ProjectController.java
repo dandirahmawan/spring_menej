@@ -22,14 +22,14 @@ public class ProjectController {
 		Utils util = new Utils();
 		Boolean isAcces = util.getAccess(userId, sessionId);
 		List<DataProject> data = new ArrayList<DataProject>();
-		if(isAcces){
-			data = ps.getDataListProject();
+		if(isAcces){ 
+			data = ps.getDataListProject(String.valueOf(userId));
 		}
-		return data;
+		return data;  
 	}
 	
 	@PostMapping("/insert_project")
-	public List<DataProject> insert(@RequestParam int userId, String projectName) {
+	public String insert(@RequestParam int userId, String projectName) {
 		return ps.insertData(userId, projectName);
 	}
 	
@@ -38,5 +38,17 @@ public class ProjectController {
 		return ps.deleteProject(projectId, userId);
 		
 	}
-	
+
+	@PostMapping("/handover_project")
+	public List<DataProject> handover(String sessionId, int userId_, int userId, int projectId){
+		Utils utils = new Utils();
+		Boolean isAccess = utils.getAccess(userId_, sessionId);
+		if(isAccess){
+			ps.handOver(projectId, userId);
+		}
+
+		List<DataProject> dataProjects = new ArrayList<DataProject>();
+		dataProjects = ps.getDataListProject(String.valueOf(userId_));
+		return dataProjects;
+	}
 }

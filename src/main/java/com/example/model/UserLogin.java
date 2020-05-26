@@ -17,7 +17,6 @@ public class UserLogin {
 
 	public void setSessionId(String sessionId) {
 		this.sessionId = sessionId;
-	}
+	} 
 
-	
 }

@@ -9,7 +9,7 @@ public class BugsKeys  implements Serializable{
 
     public int getModulId() {
         return modulId;
-    }
+    } 
 
     public void setModulId(int modulId) {
         this.modulId = modulId;

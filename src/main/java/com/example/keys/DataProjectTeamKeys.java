@@ -12,7 +12,7 @@ public class DataProjectTeamKeys implements Serializable{
 
 	public void setProjectId(int projectId) {
 		this.projectId = projectId;
-	}
+	} 
 
 	public int getUserId() {
 		return userId;

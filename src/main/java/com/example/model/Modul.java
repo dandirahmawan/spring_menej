@@ -72,7 +72,7 @@ public class Modul {
 	public void setModulName(String modulName) {
 		this.modulName = modulName;
 	}
-
+ 
 	public int getUserId() {
 		return userId;
 	}

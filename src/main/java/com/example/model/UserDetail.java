@@ -3,38 +3,41 @@ package com.example.model;
 import java.util.ArrayList;
 import java.util.List;
 
-public class UserDetail {
-    List<BugsUserDetail> bugs = new ArrayList<BugsUserDetail>();
-    List<DataModule> modul = new ArrayList<DataModule>();
-    List<DocumentFile> documentFile = new ArrayList<DocumentFile>();
+import com.example.model.view.ViewBugs;
+import com.example.model.view.ViewDocumentFile;
 
-    public UserDetail(List<BugsUserDetail> bugs, List<DataModule> modul, List<DocumentFile> documentFile){
-        this.bugs = bugs;
+public class UserDetail {
+    List<ViewBugs> viewBugs = new ArrayList<ViewBugs>();
+    List<DataModule> modul = new ArrayList<DataModule>();
+    List<ViewDocumentFile> documentFile = new ArrayList<ViewDocumentFile>();
+
+    public UserDetail(List<ViewBugs> viewBugs, List<DataModule> modul, List<ViewDocumentFile> documentFile){
+        this.viewBugs = viewBugs;
         this.modul = modul;
         this.documentFile = documentFile;
     }
 
-    public List<BugsUserDetail> getBugs() {
-        return bugs;
+    public List<ViewBugs> getBugs() {
+        return viewBugs;
     }
 
-    public void setBugs(List<BugsUserDetail> bugs) {
-        this.bugs = bugs;
+    public void setBugs(List<ViewBugs> viewBugs) {
+        this.viewBugs = viewBugs;
     }
 
     public List<DataModule> getModul() {
         return modul;
-    }
+    } 
 
     public void setModul(List<DataModule> modul) {
         this.modul = modul;
     }
 
-    public List<DocumentFile> getDocumentFile() {
+    public List<ViewDocumentFile> getDocumentFile() {
         return documentFile;
     }
 
-    public void setDocumentFile(List<DocumentFile> documentFile) {
+    public void setDocumentFile(List<ViewDocumentFile> documentFile) {
         this.documentFile = documentFile;
     }
 

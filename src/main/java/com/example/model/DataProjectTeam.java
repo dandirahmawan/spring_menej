@@ -22,10 +22,19 @@ public class DataProjectTeam{
 
     @Column(name = "user_name")
     String userName;
+    
+    @Column(name = "email_user")
+    String emailUser;
+
+    @Column(name = "pic_profile")
+    String picProfile;
+
+    @Column(name = "user_status")
+    String userStatus;
 
     public int getProjectId() {
         return projectId;
-    }
+    } 
 
     public void setProjectId(int projectId) {
         this.projectId = projectId;
@@ -47,4 +56,31 @@ public class DataProjectTeam{
         this.userName = userName;
     }
     
+    public String getmailUser() {
+        return emailUser;
+    }
+
+    public void setEmailUser(String emailUser) {
+        this.emailUser = emailUser;
+    }
+
+    public String getPicProfile() {
+        return picProfile;
+    }
+
+    public void setPicProfile(String picProfile) {
+        this.picProfile = picProfile;
+    }
+
+    public String getEmailUser() {
+        return emailUser;
+    }
+
+    public String getUserStatus() {
+        return userStatus;
+    }
+
+    public void setUserStatus(String userStatus) {
+        this.userStatus = userStatus;
+    }
 }

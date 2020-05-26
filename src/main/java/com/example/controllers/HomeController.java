@@ -16,7 +16,7 @@ public class HomeController {
 	UserService us;
 	
 	@GetMapping({"/", "/index"})
-	public List<User> home() {
-		return us.getData();
+	public String home() {
+		return "API IS RUNNING"; 
 	}	
 }

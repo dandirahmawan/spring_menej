@@ -41,6 +41,8 @@ public class DocumentFile {
 
     @Column(name = "upload_date")
     private Date uploadDate;
+    
+    String path;
 
     public int getProjectId() {
         return projectId;
@@ -52,7 +54,7 @@ public class DocumentFile {
 
     public int getModulId() {
         return modulId;
-    }
+    } 
 
     public void setModulId(int modulId) {
         this.modulId = modulId;
@@ -106,5 +108,12 @@ public class DocumentFile {
         this.uploadDate = uploadDate;
     }
 
+	public String getPath() {
+		return path;
+	}
+
+	public void setPath(String path) {
+		this.path = path;
+	}
     
 }

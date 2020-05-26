@@ -24,7 +24,7 @@ public class LoginController {
 		PreparedStatement pr = null;
 		ResultSet rst = null;
 		List<UserLogin> list = null;
-		list = new ArrayList<UserLogin>();
+		list = new ArrayList<UserLogin>(); 
 		
 		String sql = "SELECT user_id, session_id FROM user WHERE email_user = ? AND user_password = ?";
 		con = gc.getConnection();
@@ -40,15 +40,16 @@ public class LoginController {
 				if(rst.getString("session_id") == null || rst.getString("session_id").equals("")){
 					Utils util = new Utils();
 					String random = util.RandomString(20);
+					int userId = rst.getInt("user_id");
 					String sql1 = "UPDATE user SET session_id = ? WHERE user_id = ?";
 					
 					pr.close();
 					pr = con.prepareStatement(sql1);
 					pr.setString(1, random);
-					pr.setInt(2, rst.getInt("user_id"));
+					pr.setInt(2, userId);
 					pr.executeUpdate();
 					ul.setSessionId(random);
-					ul.setUserId(rst.getString("user_id"));
+					ul.setUserId(String.valueOf(userId));
 					list.add(ul);
 				}else{
 					ul.setSessionId(rst.getString("session_id"));
@@ -72,11 +73,4 @@ public class LoginController {
 		}
 		return list;
 	}
-
-	// public String randomStringSession(){
-	// 	String gen = random;
-	// 	System.out.println(gen);
-	// 	return null;
-	// }
-	
 }

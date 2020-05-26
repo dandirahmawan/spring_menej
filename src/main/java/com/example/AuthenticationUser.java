@@ -13,7 +13,7 @@ public class AuthenticationUser {
         ResultSet rst = null;
         String sql = "SELECT COUNT(user_id) count FROM user WHERE user_id = ? AND session_id = ?";
         int count = 0;
-
+ 
         try {
             con = gc.getConnection();
             pr = con.prepareStatement(sql);
@@ -25,8 +25,16 @@ public class AuthenticationUser {
             }
         } catch (SQLException e) {
             e.printStackTrace();
+        }finally {
+        	try {
+        		if(con != null) con.close();
+        		if(pr != null) pr.close();
+        		if(rst != null) rst.close();
+        	}catch(Exception e) {
+        		e.printStackTrace();
+        	}
+        	
         }
-
         return count;
     }
 }

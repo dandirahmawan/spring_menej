@@ -22,7 +22,7 @@ public class DataProject {
 						String isDelete, String isClose,
 						String userName, Long countTeam, String picName, Long countBugs, Long countModule) {
 		
-		this.projectId = projectId;
+		this.projectId = projectId; 
 		this.projectName = projectName;
 		this.pic = pic;
 		this.createdBy = createdBy;

@@ -1,10 +1,13 @@
 package com.example.service;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
+import com.example.DBConnection;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,13 +21,19 @@ public class ModuleService {
 	ModuleRepo mr;
 	
 	public List<DataModule> getDataByUser(int pi, int id){
-		return mr.fetchDataModuleByUser(pi);
+		return mr.fetchDataModuleByUser(pi, id, String.valueOf(id));
 	}
 
 	public List<DataModule> getDataByUserId(int userId){
-		return mr.fetchDataModuleByUserId(userId);
+		String userIdString = String.valueOf(userId);
+		return mr.fetchDataModuleByUserId(userId, userIdString);
 	}
-
+	
+	public List<DataModule> getDataByUserIdDetail(int userId, int userLogin){
+		String userIdString = String.valueOf(userId);
+		return mr.fetchDataUserDetail(String.valueOf(userLogin), userId);
+	}
+	
 	public List<DataModule> insertModule(int userId, String moduleName, String dueDate, String desc, int userLogin, int projectId) throws ParseException{
 		Date date = new Date();
 		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
@@ -48,7 +57,11 @@ public class ModuleService {
 		List<DataModule> dm = mr.fetchLast(userLogin, date, moduleName, projectId);
 		return dm;
 	}
-
+	
+	public DataModule getDataModuleByModuleId(int moduleId, int projectId) {
+		return mr.fetchDataModuleByModuleId(projectId, moduleId);
+	}
+	
 	public String deleteModule(String[] dataDelete){
 		for(int i = 0;i<dataDelete.length;i++){
 			int id = Integer.parseInt(dataDelete[i]);
@@ -69,5 +82,38 @@ public class ModuleService {
 		modul.setUserId(pic);
 		mr.save(modul);
 		return null;
+	}
+
+	public String handoverModule(String[] userF, int userT, int projectId){
+		DBConnection gc = new DBConnection();
+		Connection conn = gc.getConnection();
+		PreparedStatement pr = null;
+
+		String uPar = "";
+		String prPar = "";
+		for(int i = 0;i<userF.length;i++){
+            prPar += (i == userF.length - 1) ? "?" : "?,";
+		}
+
+		String sql = "UPDATE modul SET user_id = ? WHERE project_id = ? AND user_id IN ("+prPar+")";
+
+		try{
+			pr = conn.prepareStatement(sql);
+			pr.setInt(1, userT);
+			pr.setInt(2, projectId);
+			for(int i = 0;i<userF.length;i++){
+                int x = 3 + i;
+			    pr.setString(x, userF[i]);
+            }
+			int exc = pr.executeUpdate();
+		}catch (Exception e){
+			e.printStackTrace();
+		}
+
+		return null;
+	}
+
+	public List<Modul> allModule(){
+		return mr.findAll();
 	}
 }

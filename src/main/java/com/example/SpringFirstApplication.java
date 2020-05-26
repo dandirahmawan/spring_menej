@@ -1,5 +1,8 @@
 package com.example;
 
+import javax.sql.DataSource;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
@@ -12,7 +15,10 @@ import org.springframework.web.servlet.view.InternalResourceViewResolver;
 @SpringBootApplication
 @Configuration
 public class SpringFirstApplication extends SpringBootServletInitializer implements WebMvcConfigurer{
-
+	
+	@Autowired
+	DataSource dataSource;
+	
 	public static void main(String[] args) {
 		SpringApplication.run(SpringFirstApplication.class, args);
 	}
@@ -22,6 +28,10 @@ public class SpringFirstApplication extends SpringBootServletInitializer impleme
         registry.addMapping("/**");
     }
 	
+	public void run () throws Exception {
+		System.out.println("============================"+dataSource);
+	}
+	
 	@Bean
 	 public InternalResourceViewResolver viewResolver() {
 
@@ -29,6 +39,6 @@ public class SpringFirstApplication extends SpringBootServletInitializer impleme
 	     viewResolver.setPrefix("/WEB-INF/view/");
 	     viewResolver.setSuffix(".jsp");
 
-	   return viewResolver;
+	     return viewResolver;
 	}
 }

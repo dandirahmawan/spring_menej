@@ -14,6 +14,7 @@ public interface DocumentFileRepo extends JpaRepository<DocumentFile, Integer>{
     List<DocumentFile> findByModulId(int id);
     List<DocumentFile> findByProjectId(int id);
     List<DocumentFile> findByUserId(int id);
+    List<DocumentFile> findByModulIdAndProjectIdAndFileName(int moduleId, int projectId, String fileName);
 
     //delete doc file
     String sql = "DELETE DocumentFile WHERE modulId = ?1 AND projectId = ?2 AND fileName = ?3";

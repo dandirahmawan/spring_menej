@@ -8,7 +8,7 @@ public class DBConnection {
 		String url = "jdbc:mysql://localhost:3306/project_management";
 		String user = "root";
 		String password = "";
-		Connection con = null;
+		Connection con = null; 
 		try {
 //			Class.forName("com.mysql.jdbc.Driver");
 			con = DriverManager.getConnection(url, user, password);

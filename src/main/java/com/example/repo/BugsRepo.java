@@ -7,10 +7,12 @@ import org.springframework.data.jpa.repository.Query;
 
 import com.example.model.Bugs;
 import com.example.model.BugsUserDetail;
+import com.example.model.view.ViewBugs;
 
 public interface BugsRepo extends JpaRepository<Bugs, String>{
 	List<Bugs> findBymodulId(int id);
 	List<Bugs> findByProjectId(int id);
+	Bugs findByBugsId(int id);
 	Bugs findByModulIdAndNote(int id, String note);
 	
 	@Query("SELECT new com.example.model.BugsUserDetail(b.note, b.createDate) FROM Bugs b JOIN Modul m ON m.modulId = b.modulId WHERE m.userId = ?1 AND (m.isTrash = 'N' OR m.isTrash IS NULL)")

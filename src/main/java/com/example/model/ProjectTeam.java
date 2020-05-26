@@ -36,7 +36,7 @@ public class ProjectTeam {
 	public void setProjectId(int projectId) {
 		this.projectId = projectId;
 	}
-
+ 
 	public int getUserId() {
 		return userId;
 	}

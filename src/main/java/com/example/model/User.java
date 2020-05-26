@@ -9,24 +9,28 @@ import javax.persistence.Table;
 @Table(name = "user")
 public class User {
 	@Id
-	private Integer user_id;
+	@Column(name = "user_id")
+	private Integer userId;
 	
 	@Column(name = "user_name")
 	private String userName;	
 	
 	@Column(name = "pic_profile")
 	private String picProfile;
+
+	@Column(name = "pic_profile_detail")
+	private String picProfileDetail;
 	
 	@Column(name = "email_user")
 	private String emailUser;
 
-	public Integer getUser_id() {
-		return user_id;
+	public Integer getUserId() {
+		return userId;
 	}
 
-	public void setUser_id(Integer user_id) {
-		this.user_id = user_id;
-	}
+	public void setUser_id(Integer userId) {
+		this.userId = userId;
+	} 
 
 	public String getUserName() {
 		return userName;
@@ -34,6 +38,14 @@ public class User {
 
 	public void setUserName(String userName) {
 		this.userName = userName;
+	}
+
+	public String getPicProfileDetail() {
+		return picProfileDetail;
+	}
+
+	public void setPicProfileDetail(String picProfileDetail) {
+		this.picProfileDetail = picProfileDetail;
 	}
 
 	public String getPicProfile() {
@@ -51,10 +63,5 @@ public class User {
 	public void setEmailUser(String emailUser) {
 		this.emailUser = emailUser;
 	}
-
-	// @OneToMany(mappedBy = "user")
-	// private List<Modul> modul;
-	
-	
 	
 }

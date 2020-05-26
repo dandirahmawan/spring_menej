@@ -10,7 +10,6 @@ import javax.mail.internet.MimeMessage;
 
 public class EmailUtil {
     public void sendEmial(Session session, String toEmail, String subject, String body){
-        System.out.println("sending email");
         try{
             MimeMessage msg = new MimeMessage(session);
             msg.addHeader("Content-type", "text/HTML; charset=UTF-8");
