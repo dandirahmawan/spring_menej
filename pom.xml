@@ -8,15 +8,17 @@
 		<version>2.1.8.RELEASE</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>com.example.spring_first</groupId>
+	<groupId>com.menej.spring_first</groupId>
 	<artifactId>spring_first</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>spring_first</name>
 	<description>Demo project for Spring Boot</description>
+	<!--<packaging>jar</packaging>-->
 	<packaging>war</packaging>
 	<properties>
 		<java.version>1.8</java.version>
 		<maven-jar-plugin.version>3.1.1</maven-jar-plugin.version>
+		<start-class>com.menej.MenejApplication</start-class>
 	</properties>
 
 	<dependencies>
@@ -103,6 +105,13 @@
 			<groupId>org.apache.poi</groupId>
 			<artifactId>poi-ooxml</artifactId>
 			<version>3.6</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
+			<version>1.18.4</version>
+			<scope>provided</scope>
 		</dependency>
 
 	</dependencies>
