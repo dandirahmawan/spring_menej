@@ -44,12 +44,12 @@ public class FileController {
     public void photo(HttpServletResponse response, @PathVariable String fileId, @PathVariable String usr_fold, @PathVariable String mod_fold) throws Exception {
 		FileStore fs = new FileStore();
 		String uploadDir = fs.getUploadDir();
-		String filePath = uploadDir+"/usr_"+usr_fold+"/mdl_"+mod_fold+"/"+fileId;
-		System.out.println(filePath);
+//		String filePath = uploadDir+"/usr_"+usr_fold+"/mdl_"+mod_fold+"/"+fileId;
+//		System.out.println(filePath);
     	File f = new File(uploadDir+"/usr_"+usr_fold+"/mdl_"+mod_fold+"/"+fileId);
     	Path path = f.toPath();
     	String mimeType = Files.probeContentType(path);
-    	System.out.println("mime type is = "+mimeType);
+//    	System.out.println("mime type is = "+mimeType);
     	InputStream in = null;
     	
     	if(f.exists()) {

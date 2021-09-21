@@ -50,26 +50,14 @@ public class DocumentFileService{
 
     public int delete(int modulId, int projectId, String fileName, int userId){
     	List<DocumentFile> documentFiles = dfr.findByModulIdAndProjectIdAndFileName(modulId, projectId, fileName);
-    	
-    	File folderUpload = new File("../upload");
-        if(!folderUpload.exists()) folderUpload.mkdir();
-        
-        File folderDeleted = new File(folderUpload+"/deleted");
-        if(!folderDeleted.exists()) folderDeleted.mkdir();
-        
-        File folderDeletedUser = new File(folderDeleted+"/usr_"+userId);
-        if(!folderDeletedUser.exists()) folderDeletedUser.mkdir();
-        
-        File folderDeletedModuleId = new File(folderDeletedUser+"/mdl_"+modulId);
-        if(!folderDeletedModuleId.exists()) folderDeletedModuleId.mkdir();
+        String path = documentFiles.get(0).getPath();
         
     	for(int i = 0; i < documentFiles.size(); i++) {
     		try {
-				Path temp = Files.move(Paths.get(documentFiles.get(i).getPath()), Paths.get(folderDeletedModuleId+"/"+fileName));
-				if(temp != null) {
-					System.out.println("file removed");
-				}
-			} catch (IOException e) {
+				/*removing file*/
+                File file = new File(path);
+                file.delete();
+			} catch (Exception e) {
 				e.printStackTrace();
 			} 
     	}
