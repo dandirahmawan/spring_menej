@@ -14,7 +14,7 @@
 	<name>spring_first</name>
 	<description>Demo project for Spring Boot</description>
 	<!--<packaging>jar</packaging>-->
-	<packaging>war</packaging>
+	<packaging>jar</packaging>
 	<properties>
 		<java.version>1.8</java.version>
 		<maven-jar-plugin.version>3.1.1</maven-jar-plugin.version>
@@ -50,11 +50,17 @@
             <groupId>com.h2database</groupId>
             <artifactId>h2</artifactId>
         </dependency>
-        <dependency>
-		   <groupId>org.springframework.boot</groupId>
-		   <artifactId>spring-boot-starter-tomcat</artifactId>
-		   <scope>provided</scope>
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-tomcat</artifactId>
 		</dependency>
+
+        <!--<dependency>-->
+		   <!--<groupId>org.springframework.boot</groupId>-->
+		   <!--<artifactId>spring-boot-starter-tomcat</artifactId>-->
+		   <!--<scope>provided</scope>-->
+		<!--</dependency>-->
 		
 		<!-- JSTL for JSP -->
 		<dependency>
@@ -114,6 +120,17 @@
 			<scope>provided</scope>
 		</dependency>
 
+		<dependency>
+			<groupId>io.jsonwebtoken</groupId>
+			<artifactId>jjwt</artifactId>
+			<version>0.9.1</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-databind</artifactId>
+			<version>2.6.3</version>
+		</dependency>
 	</dependencies>
 
 	<build>

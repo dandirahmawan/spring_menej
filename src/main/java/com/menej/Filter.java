@@ -4,9 +4,13 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.core.annotation.Order;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
@@ -19,6 +23,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 @Order
+@Configuration
 public class Filter implements javax.servlet.Filter {
 
     Logger log = LoggerFactory.getLogger(Filter.class);
@@ -32,6 +37,9 @@ public class Filter implements javax.servlet.Filter {
         HttpServletRequest req = (HttpServletRequest) request;
         HttpServletResponse res = (HttpServletResponse) response;
 
+        String token = (req.getHeader("Authorization") ==  null)
+                ? "" : req.getHeader("Authorization");
+
         String sessionId = (req.getHeader("sessionid") ==  null)
                 ? "" : req.getHeader("sessionid");
 
@@ -42,7 +50,7 @@ public class Filter implements javax.servlet.Filter {
         String url = req.getRequestURI();
 //        String url = (urls.length > 1) ? urls[1] : "";
 //        System.out.println("url split length : "+urls.length);
-        log.info("url acccess : "+url);
+//        log.info("url acccess : "+url);
 //        if(!url.equals("start_data") && !url.equals("login") && !url.equals("register") &&
 //                !url.equals("confirmation_registration") && !url.equals("pic_profile") &&
 //                !url.equals("export_excel_tab") && !url.equals("file") &&
@@ -55,8 +63,15 @@ public class Filter implements javax.servlet.Filter {
                 !url.contains("recover_account") && !url.contains("submit_forget_password") &&
                 !url.contains("loginApp"))
         {
+
+
+            /*read token*/
+            JwtTokenUtil jwt = new JwtTokenUtil();
+            jwt.readToken(token);
+
             Utils utils = new Utils();
             Boolean isAccess = utils.getAccess(Integer.parseInt(userId), sessionId);
+//            Boolean isAccess = utils.getAccess(Integer.parseInt(userId), sessionId);
             if (!isAccess && !"OPTIONS".equalsIgnoreCase(req.getMethod())){
                 /*jika session id tidak valid*/
                 this.response(res);

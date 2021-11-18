@@ -23,11 +23,9 @@ import com.menej.DBConnection;
 import com.menej.SslEmail;
 import com.menej.Utils;
 import com.menej.model.DataModule;
-import com.menej.model.db.Invitation;
 import com.menej.model.StartData;
 import com.menej.model.db.User;
 import com.menej.model.UserDetail;
-import com.menej.model.db.UserRelation;
 import com.menej.model.view.ViewBugs;
 import com.menej.model.view.ViewDocumentFile;
 import com.menej.repo.UserRelationRepo;
@@ -41,7 +39,6 @@ import com.menej.service.UserRelationService;
 import com.menej.service.UserService;
 
 import javax.imageio.ImageIO;
-import javax.servlet.http.HttpServletResponse;
 
 @RestController
 public class UserController {
@@ -74,11 +71,13 @@ public class UserController {
 
 	@Autowired
     ViewUserRelationMemberRepo vurmr;
+
+	@Autowired
+	Utils utils;
 	
 	@PostMapping("/user_data")
 	public User getUserData(int userId, String sessionId) {
 		User user = new User();
-		Utils utils = new Utils();
 		Boolean isAcces = utils.getAccess(userId, sessionId);
 		if(isAcces) {
 			user = us.getDataById(userId);
@@ -107,7 +106,6 @@ public class UserController {
 
 	@PostMapping("/start_data")
 	public StartData startData(int userId, String sessionId) {
-		Utils utils = new Utils();
 		Boolean isAccess = utils.getAccess(userId, sessionId);
 		StartData sd = new StartData();
 		
@@ -129,9 +127,7 @@ public class UserController {
 	
 	@PostMapping("/delete_user")
 	public String deleteUser(int userId, String sessionId, int userIdLogin) {
-		Utils utils = new Utils();
 		Boolean isAccess = false;
-		
 		isAccess = utils.getAccess(userIdLogin, sessionId);
 		if(isAccess) {
 			urs.deleteUserRelation(userId, userIdLogin);
@@ -142,7 +138,6 @@ public class UserController {
 	
 	@PostMapping("/register")
 	public String regsiter(String email, String name, String password) {
-		Utils utils = new Utils();
 		String code = utils.RandomNumber(6);
 		String reg = us.register(email, name, password, code);
 		if(!reg.equals("ready")) {
@@ -177,7 +172,6 @@ public class UserController {
                 bufferedImage = ImageIO.read(byteArrayInputStream);
                 byteArrayInputStream.close();
 
-                Utils utils = new Utils();
                 BufferedImage rotatedImage = bufferedImage;
                 if(ort != 0 && ort != 1) rotatedImage = utils.rotateImage(ort, bufferedImage);
 
@@ -225,7 +219,6 @@ public class UserController {
 
 	@PostMapping("/user_change_email")
 	public JSONObject changeEmail(int userId, String email, String pass){
-		Utils utils = new Utils();
 		String passx = utils.readPass(pass);
 
 		int cgEmail = us.changeEmailService(userId, email, passx);
@@ -248,7 +241,6 @@ public class UserController {
 	@PostMapping("/change_password")
 	public int changePassword(String newPass, String password, int userId){
 			int rtn = 0;
-			Utils utils = new Utils();
 
 			Boolean valid = utils.loginUserId(userId, password);
 			System.out.println(valid);

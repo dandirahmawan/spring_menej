@@ -1,13 +1,20 @@
 package com.menej;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+@Service
 public class AuthenticationUser {
+
+    @Autowired
+    DBConnection gc;
+
     public int validUserLogin(String sessionId, int userId) {
-        DBConnection gc = new DBConnection();
         Connection con = null;
         PreparedStatement pr = null;
         ResultSet rst = null;

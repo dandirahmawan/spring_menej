@@ -1,8 +1,12 @@
 package com.menej.service;
 
 import com.menej.DBConnection;
+import com.menej.JwtTokenUtil;
 import com.menej.Utils;
 import com.menej.model.UserLogin;
+import com.menej.model.db.User;
+import com.menej.repo.UserRepo;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.sql.Connection;
@@ -16,16 +20,23 @@ import java.util.Map;
 
 @Service
 public class LoginService {
+
+    @Autowired
+    DBConnection gc;
+
+    @Autowired
+    UserRepo ur;
+
+    @Autowired
+    JwtTokenUtil jwt;
+
     public List<Object> login(String email, String pass){
-        DBConnection gc = new DBConnection();
         Connection con = null;
         PreparedStatement pr = null;
         ResultSet rst = null;
-//        List<UserLogin> list = null;
-//        list = new ArrayList<UserLogin>();
         Map<String, Object> map = new HashMap<>();
+        int userId = 0;
 
-//		System.out.println(pass);
         String sql = "SELECT user_id, session_id FROM user WHERE email_user = ? AND user_password = ?";
         con = gc.getConnection();
         try {
@@ -34,13 +45,13 @@ public class LoginService {
             pr.setString(2, pass);
             rst = pr.executeQuery();
             if(rst.next()) {
-//                UserLogin ul = new UserLogin();
-//                list = new ArrayList<UserLogin>();
-
-                if(rst.getString("session_id") == null || rst.getString("session_id").equals("")){
+                userId = rst.getInt("user_id");
+                if(
+                        rst.getString("session_id") == null ||
+                        rst.getString("session_id").equals(""))
+                {
                     Utils util = new Utils();
                     String random = util.RandomString(20);
-                    int userId = rst.getInt("user_id");
                     String sql1 = "UPDATE user SET session_id = ? WHERE user_id = ?";
 
                     pr.close();
@@ -50,15 +61,16 @@ public class LoginService {
                     pr.executeUpdate();
                     map.put("sessionId", random);
                     map.put("userId", String.valueOf(userId));
-//                    ul.setSessionId(random);
-//                    ul.setUserId(String.valueOf(userId));
-//                    list.add(ul);
                 }else{
-//                    ul.setSessionId(rst.getString("session_id"));
-//                    ul.setUserId(rst.getString("user_id"));
+                    map.put("code", 200);
                     map.put("sessionId", rst.getString("session_id"));
                     map.put("userId", rst.getString("user_id"));
                 }
+
+                /*set token jwt*/
+                User user = ur.findByUserId(userId);
+                String token = jwt.generateToken(user);
+                map.put("token", token);
             }else{
                 map.put("code", 201);
                 map.put("message", "User not registered");

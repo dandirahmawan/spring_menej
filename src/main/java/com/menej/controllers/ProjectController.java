@@ -4,14 +4,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import com.menej.Utils;
 import com.menej.model.DataProject;
 import com.menej.service.ProjectService;
+
+import javax.servlet.http.HttpServletRequest;
 
 @RestController
 @RequestMapping("/project")
@@ -20,7 +19,8 @@ public class ProjectController {
 	ProjectService ps;
 	
 	@PostMapping("/list")
-	public List<DataProject> getDataListProject(@RequestParam int userId /*String sessionId*/){
+	public List<DataProject> getDataListProject(HttpServletRequest request){
+		String userId = request.getHeader("userid");
 		List<DataProject> data = new ArrayList<DataProject>();
 		data = ps.getDataListProject(String.valueOf(userId));
 		return data;  

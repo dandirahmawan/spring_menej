@@ -1,5 +1,8 @@
 package com.menej;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 import java.awt.geom.AffineTransform;
 import java.awt.image.AffineTransformOp;
 import java.awt.image.BufferedImage;
@@ -8,7 +11,11 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
+@Service
 public class Utils {
+
+    DBConnection gc = new DBConnection();
+
     public String RandomString(int length){
         int count = length;
         String ALPHA_NUMERIC_STRING = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
@@ -35,13 +42,11 @@ public class Utils {
     
     public Boolean getAccess(int userId, String sessionId){
         Boolean rtn = false;
-        DBConnection gc = new DBConnection();
         Connection con = null;
         PreparedStatement pr = null;
         ResultSet rst = null;
 
         String sql = "SELECT COUNT(user_id) count FROM user WHERE user_id = ? AND session_id = ?";
-//        System.out.println(sql);
 
         con = gc.getConnection();
         try{

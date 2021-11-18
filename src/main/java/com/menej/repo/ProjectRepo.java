@@ -24,7 +24,6 @@ public interface ProjectRepo extends JpaRepository<Project, String>{
 			+ "(SELECT COUNT(projectId) FROM ProjectTeam WHERE projectId = p.projectId) AS countTeam, \n"
 			+ "u.userName AS picName, \n"
 			+ "u.emailUser AS picEmail, \n"
-//			+ "(SELECT userName FROM User WHERE userId = p.pic) AS picName, \n"
 			+ "(SELECT COUNT(projectId) FROM Bugs WHERE projectId = p.projectId AND (isDelete = 'N' OR isDelete IS NULL)) AS countBugs, \n"
 			+ "(SELECT COUNT(modulId) FROM Modul WHERE projectId = p.projectId and (isTrash = 'N' or isTrash IS NULL)) AS countModule) \n"
 			+ "FROM Project p \n"

@@ -36,8 +36,6 @@ public class LoginController {
 
 	@PostMapping("/loginApp")
 	public List<Object> loginApp(@RequestParam String email, String password) {
-		System.out.println("email 		: "+email);
-		System.out.println("password 	: "+password);
 		return loginService.login(email, password);
 	}
 }

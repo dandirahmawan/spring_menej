@@ -69,7 +69,7 @@ public class MemberController {
 		}
 	}
 
-	@GetMapping("/list_member/{projectId}")
+	@GetMapping("/list/{projectId}")
 	public List<DataProjectTeam> getMember(@PathVariable String projectId){
 		int projectIdInt = Integer.parseInt(projectId);
 		return pts.getDataProjectTeam(projectIdInt);
