@@ -36,7 +36,7 @@ public class LoginService {
         ResultSet rst = null;
         Map<String, Object> map = new HashMap<>();
         int userId = 0;
-
+        System.out.println("LOGIN WITH TOKEN");
         String sql = "SELECT user_id, session_id FROM user WHERE email_user = ? AND user_password = ?";
         con = gc.getConnection();
         try {
